@@ -45,16 +45,16 @@ namespace Vecc.FiddlerCertInformation
             var dataItems = new List<DataItem>();
             dataItems.Add(new DataItem("Is Https", oS.isHTTPS));
 
-            if (oS.isHTTPS && oS.oFlags.ContainsKey(CertificateStorage.CeritifcateRequestPropertyName))
+            if (oS.isHTTPS && oS.oFlags.ContainsKey(CertificateStorage.CeritificateRequestPropertyName))
             {
                 try
                 {
-                    var serialNumber = oS.oFlags[CertificateStorage.CeritifcateRequestPropertyName];
-                    FiddlerApplication.Log.LogString(serialNumber);
+                    var thumbprint = oS.oFlags[CertificateStorage.CeritificateRequestPropertyName];
+                    FiddlerApplication.Log.LogString(thumbprint);
 
-                    if (CertificateStorage.Certificates.ContainsKey(serialNumber))
+                    if (CertificateStorage.Certificates.ContainsKey(thumbprint))
                     {
-                        var certificate = CertificateStorage.Certificates[serialNumber];
+                        var certificate = CertificateStorage.Certificates[thumbprint];
                         var cert = new X509Certificate2(certificate);
 
                         _informationTab.Certificate = cert;
@@ -64,6 +64,7 @@ namespace Vecc.FiddlerCertInformation
                                                          new DataItem("Issuer", cert.Issuer),
                                                          new DataItem("Effective Date", cert.GetEffectiveDateString()),
                                                          new DataItem("Expiration Date", cert.GetExpirationDateString()),
+                                                         new DataItem("Thumbprint", cert.Thumbprint),
                                                          new DataItem("------------------------", "------------------------")});
 
                         //alphabatized data properties below

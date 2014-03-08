@@ -1,4 +1,5 @@
 ﻿using Fiddler;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Vecc.FiddlerCertInformation
 {
@@ -27,10 +28,11 @@ namespace Vecc.FiddlerCertInformation
                 {
                     var wrapper = new BasePipeWrapper(oSession.oResponse.pipeServer);
                     var certificate = wrapper.HttpsStream.RemoteCertificate;
-                    var serialNumber = certificate.GetSerialNumberString();
+                    var cert = new X509Certificate2(certificate);
+                    var thumbprint = cert.Thumbprint;
 
-                    CertificateStorage.Certificates[serialNumber] = certificate;
-                    oSession.oFlags.Add("vecc.certinformation.serialnumber", serialNumber);
+                    CertificateStorage.Certificates[thumbprint] = certificate;
+                    oSession.oFlags.Add(CertificateStorage.CeritificateRequestPropertyName, thumbprint);
                 }
             }
         }

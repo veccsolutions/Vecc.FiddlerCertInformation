@@ -7,7 +7,7 @@ namespace Vecc.FiddlerCertInformation
     {
         #region Constants
 
-        internal const string CeritifcateRequestPropertyName = "vecc.certinformation.serialnumber";
+        internal const string CeritificateRequestPropertyName = "vecc.certinformation.serialnumber";
 
         #endregion Constants
 
